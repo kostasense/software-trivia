@@ -17,6 +17,11 @@ export default function WordleNumerico({ digits, correctOrder }) {
     } else if (key === "DELETE") {
       setCurrentGuess(prev => prev.slice(0, -1));
     } else if (currentGuess.length < 5) {
+      if (currentGuess.includes(key)) {
+        setMessage("Dígito ya usado");
+        setTimeout(() => setMessage(""), 1000);
+        return;
+      }
       setCurrentGuess(prev => [...prev, key]);
     }
   }
@@ -24,6 +29,13 @@ export default function WordleNumerico({ digits, correctOrder }) {
   function submitGuess() {
     if (currentGuess.length !== 5) {
       setMessage("Ingresa 5 dígitos");
+      setTimeout(() => setMessage(""), 1500);
+      return;
+    }
+
+    const uniqueDigits = new Set(currentGuess);
+    if (uniqueDigits.size !== 5) {
+      setMessage("No repetir dígitos");
       setTimeout(() => setMessage(""), 1500);
       return;
     }
@@ -56,7 +68,6 @@ export default function WordleNumerico({ digits, correctOrder }) {
     }
 
     if (currentRow >= 5) {
-      setMessage(`Código: ${correctOrder.join("")}`);
       setGameOver(true);
       return;
     }
@@ -105,20 +116,28 @@ export default function WordleNumerico({ digits, correctOrder }) {
     return (
       <div className="space-y-2">
         <div className="flex gap-1 justify-center">
-          {digits.map(digit => (
-            <button
-              key={digit}
-              onClick={() => handleKeyPress(String(digit))}
-              className={`w-10 h-10 text-sm font-light border ${
-                keyboardStatus[String(digit)] === "correct" ? "bg-green-700 border-green-700 text-white" :
-                keyboardStatus[String(digit)] === "present" ? "bg-neutral-600 border-neutral-600 text-white" :
-                keyboardStatus[String(digit)] === "absent" ? "bg-neutral-800 border-neutral-800 text-neutral-500" :
-                "bg-neutral-900 border-neutral-700 text-white hover:bg-neutral-800"
-              }`}
-            >
-              {digit}
-            </button>
-          ))}
+          {digits.map(digit => {
+            const strDigit = String(digit);
+            const isUsedInCurrentGuess = currentGuess.includes(strDigit);
+            const isDisabled = isUsedInCurrentGuess && !gameOver;
+            
+            return (
+              <button
+                key={digit}
+                onClick={() => !isDisabled && handleKeyPress(strDigit)}
+                disabled={isDisabled}
+                className={`w-10 h-10 text-sm font-light border transition-all ${
+                  isDisabled ? "bg-neutral-950 border-neutral-800 text-neutral-600 cursor-not-allowed" :
+                  keyboardStatus[strDigit] === "correct" ? "bg-green-700 border-green-700 text-white" :
+                  keyboardStatus[strDigit] === "present" ? "bg-neutral-600 border-neutral-600 text-white" :
+                  keyboardStatus[strDigit] === "absent" ? "bg-neutral-800 border-neutral-800 text-neutral-500" :
+                  "bg-neutral-900 border-neutral-700 text-white hover:bg-neutral-800"
+                }`}
+              >
+                {digit}
+              </button>
+            );
+          })}
         </div>
         <div className="flex gap-2 justify-center">
           <button
@@ -146,7 +165,7 @@ export default function WordleNumerico({ digits, correctOrder }) {
             CÓDIGO NUMÉRICO
           </h1>
           <p className="text-xs text-neutral-500 uppercase tracking-wider">
-            5 dígitos · 6 intentos
+            5 dígitos distintos · 6 intentos
           </p>
         </div>
 
