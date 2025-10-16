@@ -86,7 +86,7 @@ export default function TriviaGame({ onFinish, fixedDigits }) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="w-full p-3 bg-black border border-neutral-700 text-white text-center font-light focus:outline-none focus:border-neutral-500"
-            placeholder="Una palabra"
+            placeholder="Respuesta..."
           />
           
           <button
