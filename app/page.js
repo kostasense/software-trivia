@@ -7,7 +7,7 @@ export default function Page() {
   const [phase, setPhase] = useState("trivia");
 
   // Los dígitos base y el orden correcto ya están definidos de forma fija
-  const FIXED_DIGITS = [4, 7, 2, 9, 5];
+  const FIXED_DIGITS = [4, 2, 7, 9, 5];
   const CORRECT_ORDER = [9, 5, 2, 7, 4];
 
   const handleFinish = () => {

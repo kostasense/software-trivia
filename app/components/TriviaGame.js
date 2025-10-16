@@ -3,24 +3,24 @@ import { useState } from "react";
 
 const QUESTIONS = [
   {
-    q: "¿Qué animal puede regenerar un brazo?",
-    pattern: "^pulpo$",
+    q: "Complete: 'La _______ es la cualidad que permite que la interfaz se ajuste a diferentes dispositivos y necesidades'",
+    pattern: "^adaptabilidad$",
   },
   {
-    q: "¿Qué fruta tiene las semillas por fuera?",
-    pattern: "^fresa$",
+    q: "Complete: 'El principio de _______ asegura que los patrones similares faciliten el aprendizaje'",
+    pattern: "^uniformidad$",
   },
   {
-    q: "¿Qué metal es líquido a temperatura ambiente?",
-    pattern: "^mercurio$",
+    q: "Complete: 'La interfaz debe proporcionar _______ clara al usuario sobre sus acciones'",
+    pattern: "^retroalimentaci[oó]n$",
   },
   {
-    q: "¿Qué ciudad colombiana es llamada la 'ciudad de la eterna primavera'?",
-    pattern: "^medell[ií]n$",
+    q: "Complete: 'Los wireframes son ejemplos de prototipos de _______ fidelidad'",
+    pattern: "^baja$",
   },
   {
-    q: "¿Qué animal nocturno, símbolo de la sabiduría, tiene grandes ojos?",
-    pattern: "^b[uú]ho$",
+    q: "¿Qué principio de diseño busca usar elementos conocidos por el usuario?",
+    pattern: "^familiaridad$",
   },
 ];
 
@@ -69,7 +69,7 @@ export default function TriviaGame({ onFinish, fixedDigits }) {
       <div className="w-full max-w-md">
         <div className="mb-12 text-center">
           <h1 className="text-2xl font-light mb-2 text-white">
-            TRIVIA
+            TRIVIA - DISEÑO DE INTERFACES
           </h1>
           <p className="text-xs text-neutral-500 uppercase tracking-wider">
             Nivel {index + 1} de 5
@@ -86,7 +86,7 @@ export default function TriviaGame({ onFinish, fixedDigits }) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="w-full p-3 bg-black border border-neutral-700 text-white text-center font-light focus:outline-none focus:border-neutral-500"
-            placeholder="Tu respuesta"
+            placeholder="Una palabra"
           />
           
           <button
